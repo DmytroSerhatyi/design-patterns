@@ -7,13 +7,13 @@ function MeowSound() { }
 
 MeowSound.prototype.makeSound = function () {
     return 'Meow meow meow!';
-}
+};
 
 function PurrSound() { }
 
 PurrSound.prototype.makeSound = function () {
     return 'Purrr... Purrrrr...';
-}
+};
 
 function Cat(name) {
     this._name = name;
@@ -22,11 +22,11 @@ function Cat(name) {
 
 Cat.prototype.performSound = function () {
     console.log(this._name + ': ' + this._soundBehavior.makeSound());
-}
+};
 
 Cat.prototype.setSoundBehavior = function (sb) {
     this._soundBehavior = sb;
-}
+};
 
 function Siamese(name) {
     Cat.apply(this, arguments);
