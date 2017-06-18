@@ -1,48 +1,45 @@
-function extend(derived, base) {
-    derived.prototype = Object.create(base.prototype);
-    derived.prototype.constructor = derived;
+class MeowSound {
+    makeSound() {
+        return 'Meow meow meow!';
+    }
 }
 
-function MeowSound() { }
-
-MeowSound.prototype.makeSound = function () {
-    return 'Meow meow meow!';
+class PurrSound {
+    makeSound() {
+        return 'Purrr... Purrrrr...';
+    }
 }
 
-function PurrSound() { }
+class Cat {
+    constructor(name) {
+        this._name = name;
+        this._soundBehavior = null;
+    }
 
-PurrSound.prototype.makeSound = function () {
-    return 'Purrr... Purrrrr...';
+    performSound() {
+        console.log(`${this._name}: ${this._soundBehavior.makeSound()}`);
+    }
+
+    setSoundBehavior(sb) {
+        this._soundBehavior = sb;
+    }
 }
 
-function Cat(name) {
-    this._name = name;
-    this._soundBehavior = null;
+class Siamese extends Cat {
+    constructor(name) {
+        super(name);
+        this._soundBehavior = new MeowSound();
+    }
 }
 
-Cat.prototype.performSound = function () {
-    console.log(this._name + ': ' + this._soundBehavior.makeSound());
+class MaineCoon extends Cat {
+    constructor(name) {
+        super(name);
+        this._soundBehavior = new PurrSound();
+    }
 }
 
-Cat.prototype.setSoundBehavior = function (sb) {
-    this._soundBehavior = sb;
-}
-
-function Siamese(name) {
-    Cat.apply(this, arguments);
-    this._soundBehavior = new MeowSound();
-}
-
-extend(Siamese, Cat);
-
-function MaineCoon(name) {
-    Cat.apply(this, arguments);
-    this._soundBehavior = new PurrSound();
-}
-
-extend(MaineCoon, Cat);
-
-var siamese = new Siamese('Simba'),
+let siamese = new Siamese('Simba'),
     maineCoon = new MaineCoon('Oscar');
 
 siamese.performSound();
