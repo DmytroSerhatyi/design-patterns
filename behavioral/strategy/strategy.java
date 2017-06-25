@@ -1,4 +1,4 @@
-public class Strategy {
+public class StrategyPattern {
     public interface SoundBehavior {
         public String makeSound();
     }

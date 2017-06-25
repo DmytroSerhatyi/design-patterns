@@ -1,4 +1,4 @@
-class Strategy
+class StrategyPattern
 {
     interface SoundBehavior
     {
