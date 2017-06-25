@@ -1,15 +1,15 @@
 interface SoundBehavior {
-    makeSound(): void;
+    makeSound(): string;
 }
 
 class MeowSound implements SoundBehavior {
-    makeSound() {
+    makeSound(): string {
         return 'Meow meow meow!';
     }
 }
 
 class PurrSound implements SoundBehavior {
-    makeSound() {
+    makeSound(): string {
         return 'Purrr... Purrrrr...';
     }
 }
@@ -22,11 +22,11 @@ abstract class Cat {
         this._name = name;
     }
 
-    public performSound() {
+    public performSound(): void {
         console.log(`${this._name}: ${this._soundBehavior.makeSound()}`);
     }
 
-    public setSoundBehavior(sb: SoundBehavior) {
+    public setSoundBehavior(sb: SoundBehavior): void {
         this._soundBehavior = sb;
     }
 }
