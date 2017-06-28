@@ -52,14 +52,16 @@ class Cat implements Subject {
     }
 }
 
-abstract class CatCaretaker implements Observer {
-    protected abstract _action: string;
-    protected abstract _stateToReact: States;
+class CatCaretaker implements Observer {
+    protected _action: string;
+    protected _stateToReact: States;
     protected _name: string;
     protected _observable: Cat;
 
-    constructor(name: string) {
+    constructor(name: string, action: string, stateToReact: States) {
         this._name = name;
+        this._action = action;
+        this._stateToReact = stateToReact;
     }
 
     public registerAsObserver(observable: Cat): void {
@@ -85,26 +87,22 @@ abstract class CatCaretaker implements Observer {
     }
 }
 
-class Feeder extends CatCaretaker {
-    protected _action = 'fed';
-    protected _stateToReact = States.eating;
-}
-
-class Walker extends CatCaretaker {
-    protected _action = 'walked';
-    protected _stateToReact = States.walking;
+class Dog implements Observer {
+    public update(): void {
+        console.log('The dog has looked at cat.');
+    }
 }
 
 let cat = new Cat('Simba'),
-    feeder = new Feeder('Feeder'),
-    anotherFeeder = new Feeder('Another Feeder'),
-    walker = new Walker('Walker');
+    feeder = new CatCaretaker('Feeder', 'fed', States.eating),
+    walker = new CatCaretaker('Walker', 'walked', States.walking),
+    dog = new Dog();
 
 feeder.registerAsObserver(cat);
-anotherFeeder.registerAsObserver(cat);
 walker.registerAsObserver(cat);
+cat.registerObserver(dog);
 
 cat.state = States.eating;
 cat.state = States.walking;
-anotherFeeder.removeAsObserver();
+cat.removeObserver(dog);
 cat.state = States.eating;

@@ -41,10 +41,10 @@ class Cat {
 }
 
 class CatCaretaker {
-    constructor(name) {
+    constructor(name, action, stateToReact) {
         this._name = name;
-        this._action = null;
-        this._stateToReact = null;
+        this._action = action;
+        this._stateToReact = stateToReact;
         this._observable = null;
     }
 
@@ -71,32 +71,22 @@ class CatCaretaker {
     }
 }
 
-class Feeder extends CatCaretaker {
-    constructor(name) {
-        super(name);
-        this._action = 'fed';
-        this._stateToReact = states.eating;
-    }
-}
-
-class Walker extends CatCaretaker {
-    constructor(name) {
-        super(name);
-        this._action = 'walked';
-        this._stateToReact = states.walking;
+class Dog {
+    update() {
+        console.log('The dog has looked at cat.');
     }
 }
 
 let cat = new Cat('Simba'),
-    feeder = new Feeder('Feeder'),
-    anotherFeeder = new Feeder('Another Feeder'),
-    walker = new Walker('Walker');
+    feeder = new CatCaretaker('Feeder', 'fed', states.eating),
+    walker = new CatCaretaker('Walker', 'walked', states.walking),
+    dog = new Dog();
 
 feeder.registerAsObserver(cat);
-anotherFeeder.registerAsObserver(cat);
 walker.registerAsObserver(cat);
+cat.registerObserver(dog);
 
 cat.state = states.eating;
 cat.state = states.walking;
-anotherFeeder.removeAsObserver();
+cat.removeObserver(dog);
 cat.state = states.eating;

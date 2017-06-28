@@ -1,5 +1,6 @@
-using System.Linq;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 class ObserverPattern
 {
@@ -65,17 +66,18 @@ class ObserverPattern
         }
     }
 
-    abstract class CatCaretaker : Observer
+    class CatCaretaker : Observer
     {
         protected string name;
         protected Cat observable;
+        protected string action { get; }
+        protected States stateToReact { get; }
 
-        protected abstract string action { get; }
-        protected abstract States stateToReact { get; }
-
-        public CatCaretaker(string name)
+        public CatCaretaker(string name, string action, States stateToReact)
         {
             this.name = name;
+            this.action = action;
+            this.stateToReact = stateToReact;
         }
 
         public void RegisterAsObserver(Cat observable)
@@ -101,40 +103,32 @@ class ObserverPattern
 
         protected void React()
         {
-            System.Console.WriteLine("{0} is being {1} by {2}.", observable.name, action, name);
+            Console.WriteLine("{0} is being {1} by {2}.", observable.name, action, name);
         }
     }
 
-    class Feeder : CatCaretaker
+    class Dog : Observer
     {
-        protected override string action { get; } = "fed";
-        protected override States stateToReact { get; } = States.eating;
-
-        public Feeder(string name) : base(name) { }
-    }
-
-    class Walker : CatCaretaker
-    {
-        protected override string action { get; } = "walked";
-        protected override States stateToReact { get; } = States.walking;
-
-        public Walker(string name) : base(name) { }
+        public void Update()
+        {
+            Console.WriteLine("The dog has looked at cat.");
+        }
     }
 
     static void Main(string[] args)
     {
         Cat cat = new Cat("Simba");
-        Feeder feeder = new Feeder("Feeder");
-        Feeder anotherFeeder = new Feeder("Another Feeder");
-        Walker walker = new Walker("Walker");
+        CatCaretaker feeder = new CatCaretaker("Feeder", "fed", States.eating);
+        CatCaretaker walker = new CatCaretaker("Walker", "walked", States.walking);
+        Dog dog = new Dog();
 
         feeder.RegisterAsObserver(cat);
-        anotherFeeder.RegisterAsObserver(cat);
         walker.RegisterAsObserver(cat);
+        cat.RegisterObserver(dog);
 
         cat.State = States.eating;
         cat.State = States.walking;
-        anotherFeeder.RemoveAsObserver();
+        cat.RemoveObserver(dog);
         cat.State = States.eating;
     }
 }

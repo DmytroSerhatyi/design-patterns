@@ -1,8 +1,3 @@
-function extend(derived, base) {
-    derived.prototype = Object.create(base.prototype);
-    derived.prototype.constructor = derived;
-}
-
 var states = {
     eating: 0,
     walking: 1
@@ -47,10 +42,10 @@ Cat.prototype.removeObserver = function (o) {
     });
 };
 
-function CatCaretaker(name) {
+function CatCaretaker(name, action, stateToReact) {
     this._name = name;
-    this._action = null;
-    this._stateToReact = null;
+    this._action = action;
+    this._stateToReact = stateToReact;
     this._observable = null;
 }
 
@@ -76,32 +71,22 @@ CatCaretaker.prototype._react = function () {
     console.log(this._observable.name + ' is being ' + this._action + ' by ' + this._name + '.');
 };
 
-function Feeder(name) {
-    CatCaretaker.apply(this, arguments);
-    this._action = 'fed';
-    this._stateToReact = states.eating;
+function Dog() { }
+
+Dog.prototype.update = function () {
+    console.log('The dog has looked at cat.');
 }
-
-extend(Feeder, CatCaretaker);
-
-function Walker(name) {
-    CatCaretaker.apply(this, arguments);
-    this._action = 'walked';
-    this._stateToReact = states.walking;
-}
-
-extend(Walker, CatCaretaker);
 
 var cat = new Cat('Simba'),
-    feeder = new Feeder('Feeder'),
-    anotherFeeder = new Feeder('Another Feeder'),
-    walker = new Walker('Walker');
+    feeder = new CatCaretaker('Feeder', 'fed', states.eating),
+    walker = new CatCaretaker('Walker', 'walked', states.walking),
+    dog = new Dog();
 
 feeder.registerAsObserver(cat);
-anotherFeeder.registerAsObserver(cat);
 walker.registerAsObserver(cat);
+cat.registerObserver(dog);
 
 cat.state = states.eating;
 cat.state = states.walking;
-anotherFeeder.removeAsObserver();
+cat.removeObserver(dog);
 cat.state = states.eating;

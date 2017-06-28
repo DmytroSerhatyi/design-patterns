@@ -55,14 +55,16 @@ public class ObserverPattern {
         }
     }
 
-    public static abstract class CatCaretaker implements Observer {
+    public static class CatCaretaker implements Observer {
         protected String action;
         protected States stateToReact;
         protected String name;
         protected Cat observable;
 
-        public CatCaretaker(String name) {
+        public CatCaretaker(String name, String action, States stateToReact) {
             this.name = name;
+            this.action = action;
+            this.stateToReact = stateToReact;
         }
 
         public void registerAsObserver(Cat observable) {
@@ -89,35 +91,25 @@ public class ObserverPattern {
         }
     }
 
-    public static class Feeder extends CatCaretaker {
-        public Feeder(String name) {
-            super(name);
-            action = "fed";
-            stateToReact = States.eating;
-        }
-    }
-
-    public static class Walker extends CatCaretaker {
-        public Walker(String name) {
-            super(name);
-            action = "walked";
-            stateToReact = States.walking;
+    public static class Dog implements Observer {
+        public void update() {
+            System.out.println("The dog has looked at cat.");
         }
     }
 
     public static void main(String[] args) {
         Cat cat = new Cat("Simba");
-        Feeder feeder = new Feeder("Feeder");
-        Feeder anotherFeeder = new Feeder("Another Feeder");
-        Walker walker = new Walker("Walker");
+        CatCaretaker feeder = new CatCaretaker("Feeder", "fed", States.eating);
+        CatCaretaker walker = new CatCaretaker("Walker", "walked", States.walking);
+        Dog dog = new Dog();
 
         feeder.registerAsObserver(cat);
-        anotherFeeder.registerAsObserver(cat);
         walker.registerAsObserver(cat);
+        cat.registerObserver(dog);
 
         cat.setState(States.eating);
         cat.setState(States.walking);
-        anotherFeeder.removeAsObserver();
+        cat.removeObserver(dog);
         cat.setState(States.eating);
     }
 }
