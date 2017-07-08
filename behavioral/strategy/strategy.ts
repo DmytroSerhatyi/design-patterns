@@ -45,10 +45,10 @@ class MaineCoon extends Cat {
     }
 }
 
-let siamese = new Siamese('Simba'),
-    maineCoon = new MaineCoon('Oscar');
+let simba: Cat = new Siamese('Simba');
+let oscar: Cat = new MaineCoon('Oscar');
 
-siamese.performSound();
-maineCoon.performSound();
-siamese.setSoundBehavior(new PurrSound());
-siamese.performSound();
+simba.performSound();
+oscar.performSound();
+simba.setSoundBehavior(new PurrSound());
+simba.performSound();

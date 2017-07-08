@@ -42,10 +42,10 @@ function MaineCoon(name) {
 
 extend(MaineCoon, Cat);
 
-var siamese = new Siamese('Simba'),
-    maineCoon = new MaineCoon('Oscar');
+var simba = new Siamese('Simba'),
+    oscar = new MaineCoon('Oscar');
 
-siamese.performSound();
-maineCoon.performSound();
-siamese.setSoundBehavior(new PurrSound());
-siamese.performSound();
+simba.performSound();
+oscar.performSound();
+simba.setSoundBehavior(new PurrSound());
+simba.performSound();

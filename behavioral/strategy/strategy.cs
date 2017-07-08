@@ -62,12 +62,12 @@ class StrategyPattern
 
     static void Main(string[] args)
     {
-        Cat siamese = new Siamese("Simba"),
-            maineCoon = new MaineCoon("Oscar");
+        Cat simba = new Siamese("Simba");
+        Cat oscar = new MaineCoon("Oscar");
 
-        siamese.PerformSound();
-        maineCoon.PerformSound();
-        siamese.SetSoundBehavior(new PurrSound());
-        siamese.PerformSound();
+        simba.PerformSound();
+        oscar.PerformSound();
+        simba.SetSoundBehavior(new PurrSound());
+        simba.PerformSound();
     }
 }

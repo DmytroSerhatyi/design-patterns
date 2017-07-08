@@ -48,12 +48,12 @@ public class StrategyPattern {
     }
 
     public static void main(String[] args) {
-        Cat siamese = new Siamese("Simba"),
-            maineCoon = new MaineCoon("Oscar");
+        Cat simba = new Siamese("Simba");
+        Cat oscar = new MaineCoon("Oscar");
 
-        siamese.performSound();
-        maineCoon.performSound();
-        siamese.setSoundBehavior(new PurrSound());
-        siamese.performSound();
+        simba.performSound();
+        oscar.performSound();
+        simba.setSoundBehavior(new PurrSound());
+        simba.performSound();
     }
 }
