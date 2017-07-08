@@ -74,7 +74,7 @@ CatCaretaker.prototype._react = function () {
 function Dog() { }
 
 Dog.prototype.update = function () {
-    console.log('The dog has looked at cat.');
+    console.log('The dog has looked at the cat.');
 }
 
 var cat = new Cat('Simba'),

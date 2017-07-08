@@ -93,7 +93,7 @@ public class ObserverPattern {
 
     public static class Dog implements Observer {
         public void update() {
-            System.out.println("The dog has looked at cat.");
+            System.out.println("The dog has looked at the cat.");
         }
     }
 

@@ -111,7 +111,7 @@ class ObserverPattern
     {
         public void Update()
         {
-            Console.WriteLine("The dog has looked at cat.");
+            Console.WriteLine("The dog has looked at the cat.");
         }
     }
 

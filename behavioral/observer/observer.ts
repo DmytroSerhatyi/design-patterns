@@ -89,14 +89,14 @@ class CatCaretaker implements Observer {
 
 class Dog implements Observer {
     public update(): void {
-        console.log('The dog has looked at cat.');
+        console.log('The dog has looked at the cat.');
     }
 }
 
-let cat = new Cat('Simba'),
-    feeder = new CatCaretaker('Feeder', 'fed', States.eating),
-    walker = new CatCaretaker('Walker', 'walked', States.walking),
-    dog = new Dog();
+let cat: Cat = new Cat('Simba');
+let feeder: CatCaretaker = new CatCaretaker('Feeder', 'fed', States.eating);
+let walker: CatCaretaker = new CatCaretaker('Walker', 'walked', States.walking);
+let dog: Dog = new Dog();
 
 feeder.registerAsObserver(cat);
 walker.registerAsObserver(cat);

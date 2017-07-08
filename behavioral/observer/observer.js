@@ -73,7 +73,7 @@ class CatCaretaker {
 
 class Dog {
     update() {
-        console.log('The dog has looked at cat.');
+        console.log('The dog has looked at the cat.');
     }
 }
 
