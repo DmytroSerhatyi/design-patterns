@@ -32,6 +32,8 @@ function CatDecorator(cat) {
 
 extend(CatDecorator, Cat);
 
+CatDecorator.prototype.describe = function () { };
+
 function Sleeping(cat) {
     CatDecorator.apply(this, arguments);
 }

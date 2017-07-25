@@ -28,6 +28,8 @@ class CatDecorator extends Cat {
         super(null);
         this._cat = cat;
     }
+
+    describe() { }
 }
 
 class Sleeping extends CatDecorator {
