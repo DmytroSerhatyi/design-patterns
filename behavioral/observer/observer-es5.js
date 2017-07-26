@@ -1,4 +1,4 @@
-var states = {
+var STATES = {
     eating: 0,
     walking: 1
 };
@@ -78,15 +78,15 @@ Dog.prototype.update = function () {
 }
 
 var cat = new Cat('Simba'),
-    feeder = new CatCaretaker('Feeder', 'fed', states.eating),
-    walker = new CatCaretaker('Walker', 'walked', states.walking),
+    feeder = new CatCaretaker('Feeder', 'fed', STATES.eating),
+    walker = new CatCaretaker('Walker', 'walked', STATES.walking),
     dog = new Dog();
 
 feeder.registerAsObserver(cat);
 walker.registerAsObserver(cat);
 cat.registerObserver(dog);
 
-cat.state = states.eating;
-cat.state = states.walking;
+cat.state = STATES.eating;
+cat.state = STATES.walking;
 cat.removeObserver(dog);
-cat.state = states.eating;
+cat.state = STATES.eating;
