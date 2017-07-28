@@ -2,74 +2,71 @@ using System;
 
 class FactoryMethodPattern
 {
-    enum PetBreeds
+    enum AnimalBreeds
     {
         siamese,
         maineCoon,
         siberianHusky
     }
 
-    abstract class Pet
+    abstract class AnimalData
     {
         protected abstract string breed { get; }
-        protected abstract string sound { get; }
+        protected abstract string origin { get; }
 
-        public void FeedPet()
+        public string ComposeBreedData()
         {
-            Console.WriteLine("{0} is fed and happy!", breed);
+            return String.Format("Breed: {0}", breed);
         }
 
-        public void PatPet()
+        public string ComposeOriginData()
         {
-            Console.WriteLine("\"{0}\" by {1}.", sound, breed);
+            return String.Format("From: {0}", origin);
         }
     }
 
-    class Siamese : Pet
+    class SiameseData : AnimalData
     {
         protected override string breed { get; } = "Siamese";
-        protected override string sound { get; } = "Meow-meow!";
+        protected override string origin { get; } = "Thailand";
         
     }
 
-    class MaineCoon : Pet
+    class MaineCoonData : AnimalData
     {
         protected override string breed { get; } = "Maine Coon";
-        protected override string sound { get; } = "Purr...";
+        protected override string origin { get; } = "Maine, United States of America";
     }
 
-    class Dog : Pet
+    class SiberianHuskyData : AnimalData
     {
         protected override string breed { get; } = "Siberian Husky";
-        protected override string sound { get; } = "Woof!";
+        protected override string origin { get; } = "Siberia";
     }
 
-    abstract class PetCaretaker
+    abstract class AnimalDatabase
     {
-        protected abstract Pet ChoosePet(PetBreeds breed);
+        protected abstract AnimalData MakeQuery(AnimalBreeds breed);
 
-        public void CarePet(PetBreeds breed)
+        public string SearchByBreed(AnimalBreeds breed)
         {
-            Pet pet = ChoosePet(breed);
+            AnimalData animal = MakeQuery(breed);
 
-            if (pet == null) return;
-
-            pet.FeedPet();
-            pet.PatPet();
+            return String.Format("{0}\n{1}", animal.ComposeBreedData(), animal.ComposeOriginData());
         }
     }
 
-    class CatCaretaker : PetCaretaker
+    class CatDatabase : AnimalDatabase
     {
-        protected override Pet ChoosePet(PetBreeds breed)
+        protected override AnimalData MakeQuery(AnimalBreeds breed)
         {
-            if (breed == PetBreeds.siamese)
+            if (breed == AnimalBreeds.siamese)
             {
-                return new Siamese();
+                return new SiameseData();
             }
-            else if (breed == PetBreeds.maineCoon)
+            else if (breed == AnimalBreeds.maineCoon)
             {
-                return new MaineCoon();
+                return new MaineCoonData();
             }
             else
             {
@@ -78,13 +75,13 @@ class FactoryMethodPattern
         }
     }
 
-    class DogCaretaker : PetCaretaker
+    class DogDatabase : AnimalDatabase
     {
-        protected override Pet ChoosePet(PetBreeds breed)
+        protected override AnimalData MakeQuery(AnimalBreeds breed)
         {
-            if (breed == PetBreeds.siberianHusky)
+            if (breed == AnimalBreeds.siberianHusky)
             {
-                return new Dog();
+                return new SiberianHuskyData();
             }
             else
             {
@@ -95,11 +92,11 @@ class FactoryMethodPattern
 
     static void Main(string[] args)
     {
-        PetCaretaker catCaretaker = new CatCaretaker();
-        PetCaretaker dogCaretaker = new DogCaretaker();
+        AnimalDatabase catDatabase = new CatDatabase();
+        AnimalDatabase dogDatabase = new DogDatabase();
 
-        catCaretaker.CarePet(PetBreeds.siamese);
-        catCaretaker.CarePet(PetBreeds.maineCoon);
-        dogCaretaker.CarePet(PetBreeds.siberianHusky);
+        Console.WriteLine(catDatabase.SearchByBreed(AnimalBreeds.siamese));
+        Console.WriteLine(catDatabase.SearchByBreed(AnimalBreeds.maineCoon));
+        Console.WriteLine(dogDatabase.SearchByBreed(AnimalBreeds.siberianHusky));
     }
 }

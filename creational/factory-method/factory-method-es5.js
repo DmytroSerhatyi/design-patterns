@@ -3,95 +3,92 @@ function extend(derived, base) {
     derived.prototype.constructor = derived;
 }
 
-var PET_BREEDS = {
+var ANIMAL_BREEDS = {
     siamese: 0,
     maineCoon: 1,
     siberianHusky: 2
 };
 
-function Pet() {
+function AnimalData() {
     this._breed = null;
-    this._sound = null;
+    this._origin = null;
 }
 
-Pet.prototype.feedPet = function () {
-    console.log(this._breed + ' is fed and happy!');
+AnimalData.prototype.composeBreedData = function () {
+    return 'Breed: ' + this._breed;
 };
 
-Pet.prototype.patPet = function () {
-    console.log('"' + this._sound + '" by ' + this._breed + '.');
+AnimalData.prototype.composeOriginData = function () {
+    return 'From: ' + this._origin;
 };
 
-function Siamese() {
-    Pet.apply(this, arguments);
+function SiameseData() {
+    AnimalData.apply(this, arguments);
     this._breed = 'Siamese';
-    this._sound = 'Meow-meow!';
+    this._origin = 'Thailand';
 }
 
-extend(Siamese, Pet);
+extend(SiameseData, AnimalData);
 
-function MaineCoon() {
-    Pet.apply(this, arguments);
+function MaineCoonData() {
+    AnimalData.apply(this, arguments);
     this._breed = 'Maine Coon';
-    this._sound = 'Purr...';
+    this._origin = 'Maine, United States of America';
 }
 
-extend(MaineCoon, Pet);
+extend(MaineCoonData, AnimalData);
 
-function Dog() {
-    Pet.apply(this, arguments);
+function SiberianHuskyData() {
+    AnimalData.apply(this, arguments);
     this._breed = 'Siberian Husky';
-    this._sound = 'Woof!';
+    this._origin = 'Siberia';
 }
 
-extend(Dog, Pet);
+extend(SiberianHuskyData, AnimalData);
 
-function PetCaretaker() { }
+function AnimalDatabase() { }
 
-PetCaretaker.prototype.choosePet = function (breed) { };
+AnimalDatabase.prototype._makeQuery = function (breed) { };
 
-PetCaretaker.prototype.carePet = function (breed) {
-    var pet = this.choosePet(breed);
+AnimalDatabase.prototype.searchByBreed = function (breed) {
+    var animal = this._makeQuery(breed);
 
-    if (!pet) return;
-
-    pet.feedPet();
-    pet.patPet();
+    return animal.composeBreedData() + '\n' + animal.composeOriginData();
 };
 
-function CatCaretaker() {
-    PetCaretaker.apply(this, arguments);
+function CatDatabase() {
+    AnimalDatabase.apply(this, arguments);
 }
 
-extend(CatCaretaker, PetCaretaker);
+extend(CatDatabase, AnimalDatabase);
 
-CatCaretaker.prototype.choosePet = function (breed) {
-    if (breed === PET_BREEDS.siamese) {
-        return new Siamese();
-    } else if (breed === PET_BREEDS.maineCoon) {
-        return new MaineCoon();
+CatDatabase.prototype._makeQuery = function (breed) {
+    if (breed === ANIMAL_BREEDS.siamese) {
+        return new SiameseData();
+    } else if (breed === ANIMAL_BREEDS.maineCoon) {
+        return new MaineCoonData();
     } else {
         return null;
     }
 };
 
-function DogCaretaker() {
-    PetCaretaker.apply(this, arguments);
+function DogDatabase() {
+    AnimalDatabase.apply(this, arguments);
 }
 
-extend(DogCaretaker, PetCaretaker);
+extend(DogDatabase, AnimalDatabase);
 
-DogCaretaker.prototype.choosePet = function (breed) {
-    if (breed === PET_BREEDS.siberianHusky) {
-        return new Dog();
+DogDatabase.prototype._makeQuery = function (breed) {
+    if (breed === ANIMAL_BREEDS.siberianHusky) {
+        return new SiberianHuskyData();
     } else {
         return null;
     }
 };
 
-var catCaretaker = new CatCaretaker();
-var dogCaretaker = new DogCaretaker();
+var catDatabase = new CatDatabase();
+var dogDatabase = new DogDatabase();
 
-catCaretaker.carePet(PET_BREEDS.siamese);
-catCaretaker.carePet(PET_BREEDS.maineCoon);
-dogCaretaker.carePet(PET_BREEDS.siberianHusky);
+console.log(catDatabase.searchByBreed(ANIMAL_BREEDS.siamese));
+console.log(catDatabase.searchByBreed(ANIMAL_BREEDS.maineCoon));
+console.log(dogDatabase.searchByBreed(ANIMAL_BREEDS.siberianHusky));

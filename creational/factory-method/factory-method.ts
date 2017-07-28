@@ -1,76 +1,73 @@
-enum PetBreeds {
+enum AnimalBreeds {
     siamese,
     maineCoon,
     siberianHusky
 }
 
-abstract class Pet {
+abstract class AnimalData {
     protected abstract _breed: string;
-    protected abstract _sound: string;
+    protected abstract _origin: string;
 
-    public feedPet(): void {
-        console.log(`${this._breed} is fed and happy!`);
+    public composeBreedData(): string {
+        return `Breed: ${this._breed}`;
     }
 
-    public patPet(): void {
-        console.log(`"${this._sound}" by ${this._breed}.`);
+    public composeOriginData(): string {
+        return `From: ${this._origin}`;
     }
 }
 
-class Siamese extends Pet {
+class SiameseData extends AnimalData {
     protected _breed: string = 'Siamese';
-    protected _sound: string = 'Meow-meow!';
+    protected _origin: string = 'Thailand';
     
 }
 
-class MaineCoon extends Pet {
+class MaineCoonData extends AnimalData {
     protected _breed: string = 'Maine Coon';
-    protected _sound: string = 'Purr...';
+    protected _origin: string = 'Maine, United States of America';
 }
 
-class Dog extends Pet {
+class SiberianHuskyData extends AnimalData {
     protected _breed: string = 'Siberian Husky';
-    protected _sound: string = 'Woof!';
+    protected _origin: string = 'Siberia';
 }
 
-abstract class PetCaretaker {
-    protected abstract choosePet(breed: PetBreeds): Pet;
+abstract class AnimalDatabase {
+    protected abstract _makeQuery(breed: AnimalBreeds): AnimalData;
 
-    public carePet(breed: PetBreeds): void {
-        let pet: Pet = this.choosePet(breed);
+    public searchByBreed(breed: AnimalBreeds): string {
+        let animal: AnimalData = this._makeQuery(breed);
 
-        if (!pet) return;
-
-        pet.feedPet();
-        pet.patPet();
+        return `${animal.composeBreedData()}\n${animal.composeOriginData()}`;
     }
 }
 
-class CatCaretaker extends PetCaretaker {
-    protected choosePet(breed: PetBreeds): Pet {
-        if (breed === PetBreeds.siamese) {
-            return new Siamese();
-        } else if (breed === PetBreeds.maineCoon) {
-            return new MaineCoon();
+class CatDatabase extends AnimalDatabase {
+    protected _makeQuery(breed: AnimalBreeds): AnimalData {
+        if (breed === AnimalBreeds.siamese) {
+            return new SiameseData();
+        } else if (breed === AnimalBreeds.maineCoon) {
+            return new MaineCoonData();
         } else {
             return null;
         }
     }
 }
 
-class DogCaretaker extends PetCaretaker {
-    protected choosePet(breed: PetBreeds): Pet {
-        if (breed === PetBreeds.siberianHusky) {
-            return new Dog();
+class DogDatabase extends AnimalDatabase {
+    protected _makeQuery(breed: AnimalBreeds): AnimalData {
+        if (breed === AnimalBreeds.siberianHusky) {
+            return new SiberianHuskyData();
         } else {
             return null;
         }
     }
 }
 
-let catCaretaker: PetCaretaker = new CatCaretaker();
-let dogCaretaker: PetCaretaker = new DogCaretaker();
+let catDatabase: AnimalDatabase = new CatDatabase();
+let dogDatabase: AnimalDatabase = new DogDatabase();
 
-catCaretaker.carePet(PetBreeds.siamese);
-catCaretaker.carePet(PetBreeds.maineCoon);
-dogCaretaker.carePet(PetBreeds.siberianHusky);
+console.log(catDatabase.searchByBreed(AnimalBreeds.siamese));
+console.log(catDatabase.searchByBreed(AnimalBreeds.maineCoon));
+console.log(dogDatabase.searchByBreed(AnimalBreeds.siberianHusky));

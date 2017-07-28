@@ -1,86 +1,83 @@
-const petBreeds = {
+const animalBreeds = {
     siamese: 0,
     maineCoon: 1,
     siberianHusky: 2
 };
 
-class Pet {
+class AnimalData {
     constructor() {
         this._breed = null;
-        this._sound = null;
+        this._origin = null;
     }
 
-    feedPet() {
-        console.log(`${this._breed} is fed and happy!`);
+    composeBreedData() {
+        return `Breed: ${this._breed}`;
     }
 
-    patPet() {
-        console.log(`"${this._sound}" by ${this._breed}.`);
+    composeOriginData() {
+        return `From: ${this._origin}`;
     }
 }
 
-class Siamese extends Pet {
+class SiameseData extends AnimalData {
     constructor() {
         super();
         this._breed = 'Siamese';
-        this._sound = 'Meow-meow!';
+        this._origin = 'Thailand';
     }
 }
 
-class MaineCoon extends Pet {
+class MaineCoonData extends AnimalData {
     constructor() {
         super();
         this._breed = 'Maine Coon';
-        this._sound = 'Purr...';
+        this._origin = 'Maine, United States of America';
     }
 }
 
-class Dog extends Pet {    
+class SiberianHuskyData extends AnimalData {    
     constructor() {
         super();
         this._breed = 'Siberian Husky';
-        this._sound = 'Woof!';
+        this._origin = 'Siberia';
     }
 }
 
-class PetCaretaker {
-    choosePet(breed) { }
+class AnimalDatabase {
+    _makeQuery(breed) { }
 
-    carePet(breed) {
-        let pet = this.choosePet(breed);
+    searchByBreed(breed) {
+        let animal = this._makeQuery(breed);
 
-        if (!pet) return;
-
-        pet.feedPet();
-        pet.patPet();
+        return `${animal.composeBreedData()}\n${animal.composeOriginData()}`;
     }
 }
 
-class CatCaretaker extends PetCaretaker {
-    choosePet(breed) {
-        if (breed === petBreeds.siamese) {
-            return new Siamese();
-        } else if (breed === petBreeds.maineCoon) {
-            return new MaineCoon();
+class CatDatabase extends AnimalDatabase {
+    _makeQuery(breed) {
+        if (breed === animalBreeds.siamese) {
+            return new SiameseData();
+        } else if (breed === animalBreeds.maineCoon) {
+            return new MaineCoonData();
         } else {
             return null;
         }
     }
 }
 
-class DogCaretaker extends PetCaretaker {
-    choosePet(breed) {
-        if (breed === petBreeds.siberianHusky) {
-            return new Dog();
+class DogDatabase extends AnimalDatabase {
+    _makeQuery(breed) {
+        if (breed === animalBreeds.siberianHusky) {
+            return new SiberianHuskyData();
         } else {
             return null;
         }
     }
 }
 
-let catCaretaker = new CatCaretaker();
-let dogCaretaker = new DogCaretaker();
+let catDatabase = new CatDatabase();
+let dogDatabase = new DogDatabase();
 
-catCaretaker.carePet(petBreeds.siamese);
-catCaretaker.carePet(petBreeds.maineCoon);
-dogCaretaker.carePet(petBreeds.siberianHusky);
+console.log(catDatabase.searchByBreed(animalBreeds.siamese));
+console.log(catDatabase.searchByBreed(animalBreeds.maineCoon));
+console.log(dogDatabase.searchByBreed(animalBreeds.siberianHusky));
