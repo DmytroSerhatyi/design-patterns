@@ -20,7 +20,6 @@ public class FactoryMethodPattern {
 
     public static class SiameseData extends AnimalData {
         public SiameseData() {
-            super();
             breed = "Siamese";
             origin = "Thailand";
         }
@@ -28,7 +27,6 @@ public class FactoryMethodPattern {
 
     public static class MaineCoonData extends AnimalData {
         public MaineCoonData() {
-            super();
             breed = "Maine Coon";
             origin = "Maine, United States of America";
         }
@@ -36,7 +34,6 @@ public class FactoryMethodPattern {
 
     public static class SiberianHuskyData extends AnimalData {
         public SiberianHuskyData() {
-            super();
             breed = "Siberian Husky";
             origin = "Siberia";
         }
