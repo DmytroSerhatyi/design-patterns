@@ -12,10 +12,10 @@ let Simba = (() => {
         }
 
         makeSound() {
-            console.log(`I'm unique ${this._name}!`);
+            console.log(`I'm unique ${this._name}! Meow!`);
         }
     };
 })();
 
-let simba = Simba.getInstance()
+let simba = Simba.getInstance();
 simba.makeSound();

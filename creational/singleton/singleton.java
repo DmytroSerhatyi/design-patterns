@@ -14,7 +14,7 @@ public class SingletonPattern {
         private Simba() { }
 
         public void makeSound() {
-            String sound = String.format("I'm unique %s!", name);
+            String sound = String.format("I'm unique %s! Meow!", name);
             System.out.println(sound);
         }
     }

@@ -11,11 +11,11 @@ var Simba = (function () {
     };
 
     Simba.prototype.makeSound = function () {
-        console.log("I'm unique " + this._name + "!");
+        console.log("I'm unique " + this._name + "! Meow!");
     }
 
     return Simba;
 })();
 
-var simba = Simba.getInstance()
+var simba = Simba.getInstance();
 simba.makeSound();

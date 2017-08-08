@@ -11,7 +11,7 @@ class Simba {
     private constructor() { }
 
     public makeSound(): void {
-        console.log(`I'm unique ${this._name}!`);
+        console.log(`I'm unique ${this._name}! Meow!`);
     }
 }
 

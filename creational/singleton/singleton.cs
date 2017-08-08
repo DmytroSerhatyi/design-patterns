@@ -19,7 +19,7 @@ class SingletonPattern
 
         public void MakeSound()
         {
-            System.Console.WriteLine("I'm unique {0}!", name);
+            System.Console.WriteLine("I'm unique {0}! Meow!", name);
         }
     }
 
