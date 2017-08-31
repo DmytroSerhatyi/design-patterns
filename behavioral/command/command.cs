@@ -11,12 +11,12 @@ class CommandPattern
             this.name = name;
         }
     
-        public void sleep()
+        public void Sleep()
         {
             Console.WriteLine("{0} is sleeping.", name);
         }
     
-        public void walk()
+        public void Walk()
         {
             Console.WriteLine("{0} is walking.", name);
         }
@@ -24,8 +24,8 @@ class CommandPattern
     
     interface Command
     {
-        void execute();
-        void undo();
+        void Execute();
+        void Undo();
     }
     
     class CatSleepCommand : Command
@@ -37,14 +37,14 @@ class CommandPattern
             this.cat = cat;
         }
     
-        public void execute()
+        public void Execute()
         {
-            cat.sleep();
+            cat.Sleep();
         }
     
-        public void undo()
+        public void Undo()
         {
-            cat.walk();
+            cat.Walk();
         }
     }
     
@@ -57,14 +57,14 @@ class CommandPattern
             this.cat = cat;
         }
     
-        public void execute()
+        public void Execute()
         {
-            cat.walk();
+            cat.Walk();
         }
     
-        public void undo()
+        public void Undo()
         {
-            cat.sleep();
+            cat.Sleep();
         }
     }
     
@@ -72,19 +72,19 @@ class CommandPattern
     {
         private Command command { get; set; }
     
-        public void setCommand(Command command)
+        public void SetCommand(Command command)
         {
             this.command = command;
         }
     
-        public void manipulateCat()
+        public void ManipulateCat()
         {
-            command.execute();
+            command.Execute();
         }
     
-        public void manipulateCatBack()
+        public void ManipulateCatBack()
         {
-            command.undo();
+            command.Undo();
         }
     }
 
@@ -95,12 +95,12 @@ class CommandPattern
         CatWalkCommand catWalk = new CatWalkCommand(simba);
         CatCaretaker catCaretaker = new CatCaretaker();
         
-        catCaretaker.setCommand(catSleep);
-        catCaretaker.manipulateCat();
-        catCaretaker.manipulateCatBack();
+        catCaretaker.SetCommand(catSleep);
+        catCaretaker.ManipulateCat();
+        catCaretaker.ManipulateCatBack();
         
-        catCaretaker.setCommand(catWalk);
-        catCaretaker.manipulateCat();
-        catCaretaker.manipulateCatBack();
+        catCaretaker.SetCommand(catWalk);
+        catCaretaker.ManipulateCat();
+        catCaretaker.ManipulateCatBack();
     }
 }

@@ -4,16 +4,16 @@ class AdapterPattern
 {
     interface Pet
     {
-        void makeSound();
-        string getName();
+        void MakeSound();
+        string GetName();
     }
 
     class PetCaretaker
     {
-        public void sayPetName(Pet pet)
+        public void SayPetName(Pet pet)
         {
-            Console.WriteLine("{0}!", pet.getName());
-            pet.makeSound();
+            Console.WriteLine("{0}!", pet.GetName());
+            pet.MakeSound();
         }
     }
 
@@ -26,12 +26,12 @@ class AdapterPattern
             this.name = name;
         }
 
-        public void makeMeow()
+        public void MakeMeow()
         {
             Console.WriteLine("{0}: Meow-meow!", name);
         }
 
-        public string getName()
+        public string GetName()
         {
             return name;
         }
@@ -46,14 +46,14 @@ class AdapterPattern
             this.cat = cat;
         }
 
-        public void makeSound()
+        public void MakeSound()
         {
-            cat.makeMeow();
+            cat.MakeMeow();
         }
 
-        public string getName()
+        public string GetName()
         {
-            return cat.getName();
+            return cat.GetName();
         }
     }
 
@@ -63,6 +63,6 @@ class AdapterPattern
         PetCaretaker petCaretaker = new PetCaretaker();
         CatAdapter catAdapter = new CatAdapter(cat);
 
-        petCaretaker.sayPetName(catAdapter);
+        petCaretaker.SayPetName(catAdapter);
     }
 }
