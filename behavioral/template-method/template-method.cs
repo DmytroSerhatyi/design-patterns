@@ -6,26 +6,26 @@ class TemplateMethodPattern
     {
         protected string forName { get; }
 
-        protected abstract void sleeping();
+        protected abstract void Sleeping();
 
         public CatSchedule(string name)
         {
             forName = name;
         }
 
-        public void makeSchedule()
+        public void MakeSchedule()
         {
-            walking();
-            eating();
-            sleeping();
+            Walking();
+            Eating();
+            Sleeping();
         }
 
-        protected void walking()
+        protected void Walking()
         {
             Console.WriteLine("{0} is walking.", forName);
         }
 
-        protected void eating()
+        protected void Eating()
         {
             Console.WriteLine("{0} is eating.", forName);
         }
@@ -35,7 +35,7 @@ class TemplateMethodPattern
     {
         public SiameseSchedule(string name) : base(name) { }
 
-        protected override void sleeping()
+        protected override void Sleeping()
         {
             Console.WriteLine("{0} is sleeping on the bed.", forName);
         }
@@ -45,7 +45,7 @@ class TemplateMethodPattern
     {
         public MaineCoonSchedule(string name) : base(name) { }
 
-        protected override void sleeping()
+        protected override void Sleeping()
         {
             Console.WriteLine("{0} is sleeping on the armchair.", forName);
         }
@@ -56,7 +56,7 @@ class TemplateMethodPattern
         SiameseSchedule simbaSchedule = new SiameseSchedule("Simba");
         MaineCoonSchedule oscarSchedule = new MaineCoonSchedule("Oscar");
 
-        simbaSchedule.makeSchedule();
-        oscarSchedule.makeSchedule();
+        simbaSchedule.MakeSchedule();
+        oscarSchedule.MakeSchedule();
     }
 }
