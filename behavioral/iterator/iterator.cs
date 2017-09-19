@@ -41,7 +41,8 @@ class IteratorPattern
             if (position >= cats.Count)
             {
                 return false;
-            } else
+            }
+            else
             {
                 return true;
             }
@@ -59,12 +60,12 @@ class IteratorPattern
     {
         private List<Cat> cats { get; } = new List<Cat>();
 
-        public void addCat(Cat cat)
+        public void AddCat(Cat cat)
         {
             cats.Add(cat);
         }
 
-        public Iterator createIterator()
+        public Iterator CreateIterator()
         {
             return new CatGangIterator(cats);
         }
@@ -72,17 +73,16 @@ class IteratorPattern
 
     static void Main(string[] args)
     {
-
         Cat simba = new Cat("Simba", "Siamese");
         Cat oscar = new Cat("Oscar", "Maine Coon");
         Cat oliver = new Cat("Oliver", "British Shorthair");
 
         CatGang catGang = new CatGang();
-        catGang.addCat(simba);
-        catGang.addCat(oscar);
-        catGang.addCat(oliver);
+        catGang.AddCat(simba);
+        catGang.AddCat(oscar);
+        catGang.AddCat(oliver);
 
-        Iterator catGangIterator = catGang.createIterator();
+        Iterator catGangIterator = catGang.CreateIterator();
 
         while (catGangIterator.HasNext())
         {
