@@ -3,11 +3,17 @@ let Simba = (() => {
 
     return class Simba {
         constructor() {
-            this._name = 'Simba';
+            if (!uniqueInstance) {
+                this._name = 'Simba';
+
+                uniqueInstance = this;
+            }
+
+            return uniqueInstance;
         }
 
         static getInstance() {
-            if (!uniqueInstance) uniqueInstance = new Simba();
+            if (!uniqueInstance) new Simba();
             return uniqueInstance;
         }
 

@@ -2,11 +2,17 @@ var Simba = (function () {
     var uniqueInstance;
 
     function Simba() {
-        this._name = 'Simba';
+        if (!uniqueInstance) {
+            this._name = 'Simba';
+
+            uniqueInstance = this;
+        }
+
+        return uniqueInstance;
     }
 
     Simba.getInstance = function () {
-        if (!uniqueInstance) uniqueInstance = new Simba();
+        if (!uniqueInstance) new Simba();
         return uniqueInstance;
     };
 
