@@ -88,7 +88,7 @@ class CommandPattern
         }
     }
 
-    public static void Main(string[] args)
+    static void Main(string[] args)
     {
         Cat simba = new Cat("Simba");
         CatSleepCommand catSleep = new CatSleepCommand(simba);
