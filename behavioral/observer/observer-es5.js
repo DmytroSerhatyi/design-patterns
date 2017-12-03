@@ -27,7 +27,7 @@ function Cat(name) {
 }
 
 Cat.prototype.notifyObservers = function () {
-    this._observers.forEach(observer => {
+    this._observers.forEach(function (observer) {
         observer.update();
     });
 };
@@ -37,7 +37,7 @@ Cat.prototype.registerObserver = function (o) {
 };
 
 Cat.prototype.removeObserver = function (o) {
-    this._observers = this._observers.filter(observer => {
+    this._observers = this._observers.filter(function (observer) {
         if (observer !== o) return observer;
     });
 };
