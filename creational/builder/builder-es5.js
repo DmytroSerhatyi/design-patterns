@@ -1,34 +1,34 @@
 function PetShopPurchase() {
-    this.description = 'Purchase contains:\n';
+    this._description = 'Purchase contains:\n';
 }
 
 PetShopPurchase.prototype.expandPurchase = function (description) {
-    this.description += description + '\n';
+    this._description += description + '\n';
 };
 
 PetShopPurchase.prototype.getDescription = function () {
-    return this.description;
+    return this._description;
 };
 
 function CatShopPurchaseBuilder() {
-    this.purchase = new PetShopPurchase();
+    this._purchase = new PetShopPurchase();
 }
 
 CatShopPurchaseBuilder.prototype.addPet = function (breed) {
-    let description = breed + ' cat';
-    this.purchase.expandPurchase(description);
+    var description = breed + ' cat';
+    this._purchase.expandPurchase(description);
 };
 
 CatShopPurchaseBuilder.prototype.addCollar = function () {
-    this.purchase.expandPurchase('cat collar');
+    this._purchase.expandPurchase('cat collar');
 };
 
 CatShopPurchaseBuilder.prototype.addBowl = function () {
-    this.purchase.expandPurchase('little bowl');
+    this._purchase.expandPurchase('little bowl');
 };
 
 CatShopPurchaseBuilder.prototype.getPurchase = function () {
-    return this.purchase;
+    return this._purchase;
 };
 
 var builder = new CatShopPurchaseBuilder();

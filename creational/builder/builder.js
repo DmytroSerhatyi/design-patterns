@@ -1,37 +1,37 @@
 class PetShopPurchase {
     constructor() {
-        this.description = 'Purchase contains:\n';
+        this._description = 'Purchase contains:\n';
     }
 
     expandPurchase(description) {
-        this.description += `${description}\n`;
+        this._description += `${description}\n`;
     }
 
     getDescription() {
-        return this.description;
+        return this._description;
     }
 }
 
 class CatShopPurchaseBuilder {
     constructor() {
-        this.purchase = new PetShopPurchase();
+        this._purchase = new PetShopPurchase();
     }
 
     addPet(breed) {
         let description = `${breed} cat`;
-        this.purchase.expandPurchase(description);
+        this._purchase.expandPurchase(description);
     }
 
     addCollar() {
-        this.purchase.expandPurchase('cat collar');
+        this._purchase.expandPurchase('cat collar');
     }
 
     addBowl() {
-        this.purchase.expandPurchase('little bowl');
+        this._purchase.expandPurchase('little bowl');
     }
 
     getPurchase() {
-        return this.purchase;
+        return this._purchase;
     }
 }
 

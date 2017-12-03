@@ -1,12 +1,12 @@
 class PetShopPurchase {
-    private description: string = 'Purchase contains:\n';
+    private _description: string = 'Purchase contains:\n';
 
     public expandPurchase(description: string): void {
-        this.description += `${description}\n`;
+        this._description += `${description}\n`;
     }
 
     public getDescription(): string {
-        return this.description;
+        return this._description;
     }
 }
 
@@ -18,27 +18,27 @@ interface PetShopPurchaseBuilder {
 }
 
 class CatShopPurchaseBuilder implements PetShopPurchaseBuilder {
-    private purchase: PetShopPurchase;
+    private _purchase: PetShopPurchase;
 
     constructor() {
-        this.purchase = new PetShopPurchase();
+        this._purchase = new PetShopPurchase();
     }
 
     public addPet(breed: string): void {
         let description = `${breed} cat`;
-        this.purchase.expandPurchase(description);
+        this._purchase.expandPurchase(description);
     }
 
     public addCollar(): void {
-        this.purchase.expandPurchase('cat collar');
+        this._purchase.expandPurchase('cat collar');
     }
 
     public addBowl(): void {
-        this.purchase.expandPurchase('little bowl');
+        this._purchase.expandPurchase('little bowl');
     }
 
     public getPurchase(): PetShopPurchase {
-        return this.purchase;
+        return this._purchase;
     }
 }
 
