@@ -34,7 +34,7 @@ let Cat = (() => {
             console.log(`${title}\n${name}\n${breed}\n${sound}\n${everMadeSound}\n${cloned}\n\n`);
         }
 
-        clone() {
+        cloneObject() {
             cloning = true;
 
             let options = {
@@ -57,5 +57,5 @@ simba.getInfo();
 simba.makeSound();
 simba.getInfo();
 
-let clone = simba.clone();
+let clone = simba.cloneObject();
 clone.getInfo();

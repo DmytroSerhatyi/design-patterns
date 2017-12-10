@@ -36,7 +36,7 @@ var Cat = (function () {
         );
     };
 
-    Cat.prototype.clone = function () {
+    Cat.prototype.cloneObject = function () {
         cloning = true;
 
         var options = {
@@ -60,5 +60,5 @@ simba.getInfo();
 simba.makeSound();
 simba.getInfo();
 
-var clone = simba.clone();
+var clone = simba.cloneObject();
 clone.getInfo();

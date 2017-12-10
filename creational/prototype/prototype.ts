@@ -45,7 +45,7 @@ class Cat {
         console.log(`${title}\n${name}\n${breed}\n${sound}\n${everMadeSound}\n${cloned}\n\n`);
     }
 
-    public clone(): Cat {
+    public cloneObject(): Cat {
         Cat._cloning = true;
 
         let options: CatCloningOptions = {
@@ -67,5 +67,5 @@ simba.getInfo();
 simba.makeSound();
 simba.getInfo();
 
-let clone: Cat = simba.clone();
+let clone: Cat = simba.cloneObject();
 clone.getInfo();

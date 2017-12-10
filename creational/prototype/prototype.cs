@@ -53,7 +53,7 @@ class PrototypePattern
             Console.WriteLine("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n\n", title, name, breed, sound, everMadeSound, cloned);
         }
 
-        public Cat Clone()
+        public Cat CloneObject()
         {
             CatCloningOptions options = new CatCloningOptions
             {
@@ -74,7 +74,7 @@ class PrototypePattern
         simba.MakeSound();
         simba.GetInfo();
 
-        Cat clone = simba.Clone();
+        Cat clone = simba.CloneObject();
         clone.GetInfo();
     }
 }

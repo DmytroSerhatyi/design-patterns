@@ -45,7 +45,7 @@ public class PrototypePattern {
             System.out.println(result);
         }
 
-        public Cat clone() {
+        public Cat cloneObject() {
             CatCloningOptions options = new CatCloningOptions();
             options.name = name;
             options.breed = breed;
@@ -62,7 +62,7 @@ public class PrototypePattern {
         simba.makeSound();
         simba.getInfo();
 
-        Cat clone = simba.clone();
+        Cat clone = simba.cloneObject();
         clone.getInfo();
     }
 }
