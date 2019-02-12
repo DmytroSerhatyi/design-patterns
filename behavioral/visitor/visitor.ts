@@ -9,6 +9,10 @@ class Cat {
         this._sound = sound;
     }
 
+    public accept(visitor: Visitor): void {
+        visitor.visit(this);
+    }
+
     public get name(): string {
         return this._name;
     }
@@ -22,13 +26,19 @@ class Cat {
     }
 }
 
-class Visitor {
-    public makeSound(cat: Cat): void {
-        console.log(`${cat.name}: "${cat.sound}"`);
-    }
+interface Visitor {
+    visit(cat: Cat): void;
+}
 
-    public getInfo(cat: Cat): void {
+class InfoVisitor implements Visitor {
+    public visit(cat: Cat): void {
         console.log(`${cat.breed} cat ${cat.name}.`);
+    }
+}
+
+class SoundVisitor implements Visitor {
+    public visit(cat: Cat): void {
+        console.log(`${cat.name}: "${cat.sound}"`);
     }
 }
 
@@ -37,9 +47,10 @@ let cats: Cat[] = [
     new Cat('Oscar', 'Maine Coon', 'Meoow')
 ];
 
-let visitor: Visitor = new Visitor();
+let infoVisitor: Visitor = new InfoVisitor();
+let soundVisitor: Visitor = new SoundVisitor();
 
 for (let cat of cats) {
-    visitor.makeSound(cat);
-    visitor.getInfo(cat);
+    cat.accept(infoVisitor);
+    cat.accept(soundVisitor);
 }

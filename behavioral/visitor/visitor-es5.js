@@ -22,14 +22,20 @@ function Cat(name, breed, sound) {
     });
 }
 
-function Visitor() { }
-
-Visitor.prototype.makeSound = function (cat) {
-    console.log(cat.name + ': "' + cat.sound + '"');
+Cat.prototype.accept = function (visitor) {
+    visitor.visit(this);
 };
 
-Visitor.prototype.getInfo = function (cat) {
+function InfoVisitor() { }
+
+InfoVisitor.prototype.visit = function (cat) {
     console.log(cat.breed + ' cat ' + cat.name + '.');
+};
+
+function SoundVisitor() { }
+
+SoundVisitor.prototype.visit = function (cat) {
+    console.log(cat.name + ': "' + cat.sound + '"');
 };
 
 var cats = [
@@ -37,11 +43,12 @@ var cats = [
     new Cat('Oscar', 'Maine Coon', 'Meoow')
 ];
 
-var visitor = new Visitor();
+var infoVisitor = new InfoVisitor();
+var soundVisitor = new SoundVisitor();
 
 for (var i = 0; i < cats.length; i++) {
     var cat = cats[i];
 
-    visitor.makeSound(cat);
-    visitor.getInfo(cat);
+    cat.accept(infoVisitor);
+    cat.accept(soundVisitor)
 }

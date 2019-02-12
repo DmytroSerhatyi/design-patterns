@@ -5,6 +5,10 @@ class Cat {
         this._sound = sound;
     }
 
+    accept(visitor) {
+        visitor.visit(this);
+    }
+
     get name() {
         return this._name;
     }
@@ -18,13 +22,15 @@ class Cat {
     }
 }
 
-class Visitor {
-    makeSound(cat) {
-        console.log(`${cat.name}: "${cat.sound}"`);
-    }
-
-    getInfo(cat) {
+class InfoVisitor {
+    visit(cat) {
         console.log(`${cat.breed} cat ${cat.name}.`);
+    }
+}
+
+class SoundVisitor {
+    visit(cat) {
+        console.log(`${cat.name}: "${cat.sound}"`);
     }
 }
 
@@ -33,9 +39,10 @@ let cats = [
     new Cat('Oscar', 'Maine Coon', 'Meoow')
 ];
 
-let visitor = new Visitor();
+let infoVisitor = new InfoVisitor();
+let soundVisitor = new SoundVisitor();
 
 for (let cat of cats) {
-    visitor.makeSound(cat);
-    visitor.getInfo(cat);
+    cat.accept(infoVisitor);
+    cat.accept(soundVisitor);
 }

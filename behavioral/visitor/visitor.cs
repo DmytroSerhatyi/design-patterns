@@ -14,18 +14,31 @@ class VisitorPattern
             this.breed = breed;
             this.sound = sound;
         }
+
+        public void Accept(Visitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 
-    class Visitor
+    interface Visitor
     {
-        public void MakeSound(Cat cat)
-        {
-            Console.WriteLine("{0}: \"{1}\"", cat.name, cat.sound);
-        }
+        void Visit(Cat cat);
+    }
 
-        public void GetInfo(Cat cat)
+    class InfoVisitor : Visitor
+    {
+        public void Visit(Cat cat)
         {
             Console.WriteLine("{0} cat {1}.", cat.breed, cat.name);
+        }
+    }
+
+    class SoundVisitor : Visitor
+    {
+        public void Visit(Cat cat)
+        {
+            Console.WriteLine("{0}: \"{1}\"", cat.name, cat.sound);
         }
     }
 
@@ -36,12 +49,13 @@ class VisitorPattern
             new Cat("Oscar", "Maine Coon", "Meoow")
         };
 
-        Visitor visitor = new Visitor();
+        Visitor infoVisitor = new InfoVisitor();
+        Visitor soundVisitor = new SoundVisitor();
 
         foreach (Cat cat in cats)
         {
-            visitor.MakeSound(cat);
-            visitor.GetInfo(cat);
+            cat.Accept(infoVisitor);
+            cat.Accept(soundVisitor);
         }
     }
 }

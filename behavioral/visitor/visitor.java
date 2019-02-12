@@ -10,6 +10,10 @@ public class VisitorPattern {
             this.sound = sound;
         }
 
+        public void accept(Visitor visitor) {
+            visitor.visit(this);
+        }
+
         public String getName() {
             return name;
         }
@@ -23,14 +27,20 @@ public class VisitorPattern {
         }
     }
 
-    public static class Visitor {
-        public void makeSound(Cat cat) {
-            String result = String.format("%s: \"%s\"", cat.getName(), cat.getSound());
+    public interface Visitor {
+        public void visit(Cat cat);
+    }
+
+    public static class InfoVisitor implements Visitor {
+        public void visit(Cat cat) {
+            String result = String.format("%s cat %s.", cat.getBreed(), cat.getName());
             System.out.println(result);
         }
+    }
 
-        public void getInfo(Cat cat) {
-            String result = String.format("%s cat %s.", cat.getBreed(), cat.getName());
+    public static class SoundVisitor implements Visitor {
+        public void visit(Cat cat) {
+            String result = String.format("%s: \"%s\"", cat.getName(), cat.getSound());
             System.out.println(result);
         }
     }
@@ -41,11 +51,12 @@ public class VisitorPattern {
             new Cat("Oscar", "Maine Coon", "Meoow")
         };
 
-        Visitor visitor = new Visitor();
+        Visitor infoVisitor = new InfoVisitor();
+        Visitor soundVisitor = new SoundVisitor();
 
         for (Cat cat : cats) {
-            visitor.makeSound(cat);
-            visitor.getInfo(cat);
+            cat.accept(infoVisitor);
+            cat.accept(soundVisitor);
         }
     }
 }
