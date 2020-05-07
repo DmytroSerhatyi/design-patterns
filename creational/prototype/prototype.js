@@ -1,61 +1,42 @@
-let Cat = (() => {
-    let cloning = false;
-
-    return class Cat {
-        constructor(name, breed, sound, options) {
-            if (cloning) {
-                this._name = options.name;
-                this._breed = options.breed;
-                this._sound = options.sound;
-                this._everMadeSound = options.everMadeSound;
-                this._cloned = true;
-            } else {
-                this._name = name;
-                this._breed = breed;
-                this._sound = sound;
-                this._everMadeSound = false;
-                this._cloned = false;
-            }
-        }
-
-        makeSound() {
-            this._everMadeSound = true;
-            console.log(this._sound);
-        }
-
-        getInfo() {
-            let title = 'Cat info:';
-            let name = `name: ${this._name}`;
-            let breed = `breed: ${this._breed}`;
-            let sound = `sound: ${this._sound}`;
-            let everMadeSound = `ever made sound: ${this._everMadeSound}`;
-            let cloned = `cloned: ${this._cloned}`;
-
-            console.log(`${title}\n${name}\n${breed}\n${sound}\n${everMadeSound}\n${cloned}\n\n`);
-        }
-
-        cloneObject() {
-            cloning = true;
-
-            let options = {
-                name: this._name,
-                breed: this._breed,
-                sound: this._sound,
-                everMadeSound: this._everMadeSound
-            };
-
-            let clone = new Cat(null, null, null, options);
-            cloning = false;
-
-            return clone;
-        }
+class Cat {
+    constructor(name, breed, sound) {
+        this._name = name;
+        this._breed = breed;
+        this._sound = sound;
+        this._everMadeSound = false;
+        this._cloned = false;
     }
-})();
 
-let simba = new Cat('Simba', 'Siamese', 'Meow-meow');
+    makeSound() {
+        this._everMadeSound = true;
+        console.log(this._sound);
+    }
+
+    getInfo() {
+        const title = 'Cat info:';
+        const name = `name: ${this._name}`;
+        const breed = `breed: ${this._breed}`;
+        const sound = `sound: ${this._sound}`;
+        const everMadeSound = `ever made sound: ${this._everMadeSound}`;
+        const cloned = `cloned: ${this._cloned}`;
+
+        console.log(`${title}\n${name}\n${breed}\n${sound}\n${everMadeSound}\n${cloned}\n\n`);
+    }
+
+    cloneObject() {
+        const clone = new Cat(this._name, this._breed, this._sound);
+
+        clone._everMadeSound = this._everMadeSound;
+        clone._cloned = true;
+
+        return clone;
+    }
+}
+
+const simba = new Cat('Simba', 'Siamese', 'Meow-meow');
 simba.getInfo();
 simba.makeSound();
 simba.getInfo();
 
-let clone = simba.cloneObject();
+const clone = simba.cloneObject();
 clone.getInfo();

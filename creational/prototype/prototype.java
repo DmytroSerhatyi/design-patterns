@@ -1,31 +1,15 @@
 public class PrototypePattern {
-    public static class CatCloningOptions {
-        public String name;
-        public String breed;
-        public String sound;
-        public boolean everMadeSound;
-    }
-
     public static class Cat {
         private String name;
         private String breed;
         private String sound;
         private boolean everMadeSound = false;
-        private boolean cloned;
+        private boolean cloned = false;
 
         public Cat(String name, String breed, String sound) {
             this.name = name;
             this.breed = breed;
             this.sound = sound;
-            cloned = false;
-        }
-
-        private Cat(CatCloningOptions options) {
-            name = options.name;
-            breed = options.breed;
-            sound = options.sound;
-            everMadeSound = options.everMadeSound;
-            cloned = true;
         }
 
         public void makeSound() {
@@ -46,13 +30,12 @@ public class PrototypePattern {
         }
 
         public Cat cloneObject() {
-            CatCloningOptions options = new CatCloningOptions();
-            options.name = name;
-            options.breed = breed;
-            options.sound = sound;
-            options.everMadeSound = everMadeSound;
+            Cat clone = new Cat(name, breed, sound);
 
-            return new Cat(options);
+            clone.everMadeSound = everMadeSound;
+            clone.cloned = true;
+
+            return clone;
         }
     }
 

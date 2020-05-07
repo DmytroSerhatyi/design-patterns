@@ -2,37 +2,19 @@ using System;
 
 class PrototypePattern
 {
-    class CatCloningOptions
-    {
-        public string name { get; set; }
-        public string breed { get; set; }
-        public string sound { get; set; }
-        public bool everMadeSound { get; set; }
-    }
-
     class Cat
     {
         private string name { get; }
         private string breed { get; }
         private string sound { get; }
         private bool everMadeSound { get; set; } = false;
-        private bool cloned { get; set; }
+        private bool cloned { get; set; } = false;
 
         public Cat(string name, string breed, string sound)
         {
             this.name = name;
             this.breed = breed;
             this.sound = sound;
-            cloned = false;
-        }
-
-        private Cat(CatCloningOptions options)
-        {
-            name = options.name;
-            breed = options.breed;
-            sound = options.sound;
-            everMadeSound = options.everMadeSound;
-            cloned = true;
         }
 
         public void MakeSound()
@@ -55,15 +37,12 @@ class PrototypePattern
 
         public Cat CloneObject()
         {
-            CatCloningOptions options = new CatCloningOptions
-            {
-                name = name,
-                breed = breed,
-                sound = sound,
-                everMadeSound = everMadeSound
-            };
+            Cat clone = new Cat(name, breed, sound);
 
-            return new Cat(options);
+            clone.everMadeSound = everMadeSound;
+            clone.cloned = true;
+
+            return clone;
         }
     }
 
